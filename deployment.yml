@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-default-namespace
+  namespace: demo
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+      env: demo 
+  template:
+    metadata:
+      labels:
+        app: nginx
+        env: demo
+    spec:
+      containers:
+      - name: nginx-default-namespace
+        image: nginx
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - name: http
+          containerPort: 80

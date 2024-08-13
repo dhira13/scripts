@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cm-frontend
+  namespace: cm-frontend
+  labels:
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+      env: demo 
+  template:
+    metadata:
+      labels:
+        app: nginx
+        env: demo
+    spec:
+      containers:
+      - name: cm-frontend
+        image: cm_frontend_nginx:latest
+        imagePullPolicy: Never
+        resources:
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+        ports:
+        - name: http
+          containerPort: 80
